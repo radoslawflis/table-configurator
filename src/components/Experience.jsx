@@ -3,7 +3,7 @@ import { Table } from './Table';
 import { OrbitControls, Stage } from '@react-three/drei';
 
 export const Experience = () => {
-  const { legs, tableWidth } = useConfigurator();
+  const { legs } = useConfigurator();
   return (
     <>
       <Stage

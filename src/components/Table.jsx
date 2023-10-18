@@ -26,12 +26,17 @@ export function Table(props) {
     materials.Metal.color = new Three.Color(legsColor);
   }, [legsColor]);
 
-  const tableWidthScale = tableWidth / 100;
-
   useFrame((_state, delta) => {
+    const tableWidthScale = tableWidth / 100;
     const targetScale = new Vector3(tableWidthScale, 1, 1);
 
+    const targetLeftPosition = new Vector3(-1.5 * tableWidthScale, 0, 0);
     plate.current.scale.lerp(targetScale, delta * ANIM_SPEED);
+
+    leftLegs.current.position.lerp(targetLeftPosition, delta * ANIM_SPEED);
+
+    const targetRightPosition = new Vector3(1.5 * tableWidthScale, 0, 0);
+    rightLegs.current.position.lerp(targetRightPosition, delta * ANIM_SPEED);
   });
 
   return (
@@ -40,7 +45,6 @@ export function Table(props) {
         geometry={nodes.Plate.geometry}
         material={materials.Plate}
         castShadow
-        scale={[tableWidthScale, 1, 1]}
         ref={plate}
       />
       {legs === 0 && (
@@ -85,14 +89,14 @@ export function Table(props) {
             castShadow
             geometry={nodes.Legs03Left.geometry}
             material={materials.Metal}
-            position={[-1.5 * tableWidthScale, 0, 0]}
+            position={[-1.5, 0, 0]}
             ref={leftLegs}
           />
           <mesh
             castShadow
             geometry={nodes.Legs03Right.geometry}
             material={materials.Metal}
-            position={[1.5 * tableWidthScale, 0, 0]}
+            position={[1.5, 0, 0]}
             ref={rightLegs}
           />
         </>
