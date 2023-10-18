@@ -8,15 +8,31 @@ import { useGLTF } from '@react-three/drei';
 import { useConfigurator } from '../contexts/Configurator';
 
 import * as Three from 'three';
+import { Vector3 } from 'three';
+import { useFrame } from '@react-three/fiber';
+
+const ANIM_SPEED = 12;
 
 export function Table(props) {
   const { nodes, materials } = useGLTF('./models/Table.gltf');
 
-  const { legs, legsColor } = useConfigurator();
+  const { legs, legsColor, tableWidth } = useConfigurator();
+
+  const plate = useRef();
+  const leftLegs = useRef();
+  const rightLegs = useRef();
 
   useEffect(() => {
     materials.Metal.color = new Three.Color(legsColor);
   }, [legsColor]);
+
+  const tableWidthScale = tableWidth / 100;
+
+  useFrame((_state, delta) => {
+    const targetScale = new Vector3(tableWidthScale, 1, 1);
+
+    plate.current.scale.lerp(targetScale, delta * ANIM_SPEED);
+  });
 
   return (
     <group {...props} dispose={null}>
@@ -24,6 +40,8 @@ export function Table(props) {
         geometry={nodes.Plate.geometry}
         material={materials.Plate}
         castShadow
+        scale={[tableWidthScale, 1, 1]}
+        ref={plate}
       />
       {legs === 0 && (
         <>
@@ -32,12 +50,14 @@ export function Table(props) {
             geometry={nodes.Legs01Left.geometry}
             material={materials.Metal}
             position={[-1.5, 0, 0]}
+            ref={leftLegs}
           />
           <mesh
             castShadow
             geometry={nodes.Legs01Right.geometry}
             material={materials.Metal}
             position={[1.5, 0, 0]}
+            ref={rightLegs}
           />
         </>
       )}
@@ -48,12 +68,14 @@ export function Table(props) {
             geometry={nodes.Legs02Left.geometry}
             material={materials.Metal}
             position={[-1.5, 0, 0]}
+            ref={leftLegs}
           />
           <mesh
             castShadow
             geometry={nodes.Legs02Right.geometry}
             material={materials.Metal}
             position={[1.5, 0, 0]}
+            ref={rightLegs}
           />
         </>
       )}
@@ -63,13 +85,15 @@ export function Table(props) {
             castShadow
             geometry={nodes.Legs03Left.geometry}
             material={materials.Metal}
-            position={[-1.5, 0, 0]}
+            position={[-1.5 * tableWidthScale, 0, 0]}
+            ref={leftLegs}
           />
           <mesh
             castShadow
             geometry={nodes.Legs03Right.geometry}
             material={materials.Metal}
-            position={[1.5, 0, 0]}
+            position={[1.5 * tableWidthScale, 0, 0]}
+            ref={rightLegs}
           />
         </>
       )}

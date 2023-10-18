@@ -11,9 +11,9 @@ import {
 } from '@mui/material';
 import { useConfigurator } from '../contexts/Configurator';
 export const Interface = () => {
-  // const { tableWidth, setTableWidth, legs, setLegs, legsColor, setLegsColor } =
-  //   useConfigurator();
-  const { legs, setLegs, legsColor, setLegsColor } = useConfigurator();
+  const { tableWidth, setTableWidth, legs, setLegs, legsColor, setLegsColor } =
+    useConfigurator();
+
   return (
     <Box
       sx={{
@@ -34,8 +34,8 @@ export const Interface = () => {
               }}
               min={50}
               max={200}
-              // value={tableWidth}
-              // onChange={(e) => setTableWidth(e.target.value)}
+              value={tableWidth}
+              onChange={(e) => setTableWidth(e.target.value)}
               valueLabelDisplay='auto'
             />
           </FormControl>
