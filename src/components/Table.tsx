@@ -9,18 +9,19 @@ import { useConfigurator } from '../contexts/Configurator';
 
 import * as Three from 'three';
 import { Vector3 } from 'three';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, GroupProps } from '@react-three/fiber';
+import { Mesh } from 'three';
 
 const ANIM_SPEED = 12;
 
-export function Table(props) {
-  const { nodes, materials } = useGLTF('./models/Table.gltf');
+export function Table(props: GroupProps) {
+  const { nodes, materials } = useGLTF('./models/Table.gltf') as any;  //types are not defined in drei
 
   const { legs, legsColor, tableWidth } = useConfigurator();
 
-  const plate = useRef();
-  const leftLegs = useRef();
-  const rightLegs = useRef();
+  const plate = useRef<Mesh>(null!);
+  const leftLegs = useRef<Mesh>(null!);
+  const rightLegs = useRef<Mesh>(null!);
 
   useEffect(() => {
     materials.Metal.color = new Three.Color(legsColor);
