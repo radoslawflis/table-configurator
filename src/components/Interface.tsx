@@ -8,11 +8,19 @@ import {
   Slider,
   Stack,
   Typography,
+  SxProps
 } from '@mui/material';
 import { useConfigurator } from '../contexts/Configurator';
+import React from 'react';
 export const Interface = () => {
   const { tableWidth, setTableWidth, legs, setLegs, legsColor, setLegsColor } =
     useConfigurator();
+
+  const handleTableWidthChange = (e: Event, value: number | number[]) => {
+    if (typeof value === 'number') {
+      setTableWidth(value);
+    }
+  }
 
   return (
     <Box
@@ -35,7 +43,7 @@ export const Interface = () => {
               min={50}
               max={200}
               value={tableWidth}
-              onChange={(e) => setTableWidth(e.target.value)}
+              onChange={handleTableWidthChange}
               valueLabelDisplay='auto'
             />
           </FormControl>

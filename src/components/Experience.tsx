@@ -12,7 +12,7 @@ export const Experience = () => {
         shadows={{
           type: 'accumulative',
           // color: '#d9afd9',
-          colorBelnd: 2,
+          colorBlend: 2,
           opacity: 1,
         }}
         adjustCamera={2}
