@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.13 public/models/Table.gltf
 */
 
 import React, { useContext, useEffect, useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { Edges, useGLTF } from '@react-three/drei';
 import { useConfigurator } from '../contexts/Configurator';
 
 import * as Three from 'three';
@@ -41,12 +41,15 @@ export function Table(props) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh
-        geometry={nodes.Plate.geometry}
-        material={materials.Plate}
-        castShadow
-        ref={plate}
-      />
+      <>
+        <mesh
+          geometry={nodes.Plate.geometry}
+          material={materials.Plate}
+          castShadow
+          ref={plate}
+        />
+        <Edges />
+      </>
       {legs === 0 && (
         <>
           <mesh

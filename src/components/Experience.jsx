@@ -11,9 +11,9 @@ export const Experience = () => {
         environment='city'
         shadows={{
           type: 'accumulative',
-          color: '#d9afd9',
+          // color: '#d9afd9',
           colorBelnd: 2,
-          opacity: 2,
+          opacity: 1,
         }}
         adjustCamera={2}
       >
